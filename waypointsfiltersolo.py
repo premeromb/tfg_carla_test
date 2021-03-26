@@ -107,7 +107,6 @@ try:
     plt.plot(x, y, 'ro')
     plt.show()
     
-    carla
 
 finally:
     print(len(filtrados))

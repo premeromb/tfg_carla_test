@@ -83,6 +83,9 @@ try:
     map = world.get_map()
 
     generados = map.generate_waypoints(15)
+
+    outputfileXY = open("outFile_waypointsXY.txt", "w")
+    outputfileLatLon = open("outFile_waypointsLatLon.txt", "w")
     
     x = []
     y = []
@@ -96,15 +99,19 @@ try:
         #if (i.is_junction and i.left_lane_marking.type != "NONE") or (str(i.right_lane_marking.type) == "Broken" and str(i.left_lane_marking.type) == "Broken"):
         if i.is_junction and (str(i.right_lane_marking.type) != "NONE" and str(i.left_lane_marking.type) != "NONE") :
             if latitud.longitude < -6.338950801925578 and latitud.longitude > -6.344916034757305 and latitud.latitude < 39.48059130922252 and latitud.latitude > 39.47907173926249:
-                if distanceBetweenCoords(beforeCoord[0], beforeCoord[1], latitud.latitude, latitud.longitude) > 1 :
+                if distanceBetweenCoords(beforeCoord[0], beforeCoord[1], latitud.latitude, latitud.longitude) > 10 :
                     #print("Lat: " + str(latitud.latitude) + " Lon: " + str(latitud.longitude))
                     #print("X: " + str(i.transform.location.x) + " Y: " + str(i.transform.location.y))
                     x.append(i.transform.location.x)
                     y.append(i.transform.location.y)
                     filtrados.append(i)
+                    outputfileXY.write(str(i.transform.location.x) + "#" + str(i.transform.location.y) + "\n")
+                    outputfileLatLon.write(str(latitud.latitude) + "#" + str(latitud.longitude) + "\n")
                     #print(i.left_lane_marking.type)
                     #print(i.right_lane_marking.type)
                     beforeCoord = [latitud.latitude, latitud.longitude]
+    outputfileXY.close()
+    outputfileLatLon.close
 
     #plt.plot(x, y, 'ro')
     #plt.show()
@@ -125,7 +132,7 @@ try:
     print(vehicle.get_location())
 
     vehicle.set_autopilot(True)
-    time.sleep(100)
+    #time.sleep(100)
     #vehicle.apply_control(carla.VehicleControl(throttle=-0, steer=0))
 
     #blueprint_library = world.get_blueprint_library()
