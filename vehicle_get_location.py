@@ -89,20 +89,13 @@ try:
             break
 
     print(vehicle.get_location())
+    print(vehicle.get_transform().location.x)
+    print(vehicle.get_transform().location.y)
 
-    #vehicle.set_autopilot(True)
-    #time.sleep(100)
-    #vehicle.apply_control(carla.VehicleControl(throttle=-0, steer=0))
+    if vehicle.get_transform().location.x < 0:
+        print("es negativo")
 
-    #blueprint_library = world.get_blueprint_library()
-    #vehicle_bp = random.choice(blueprint_library.filter('vehicle.*'))
-
-
-    #print("Vehicle init pos: " , vehicle.get_location())
-
-
- 
-
+    
 
 finally:
     
